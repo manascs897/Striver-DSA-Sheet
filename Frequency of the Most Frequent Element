@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k) {
+        // Sort the array to align the elements for sliding window analysis
+        sort(nums.begin(), nums.end());
+        
+        int max_frequency = 0;      // To store the maximum frequency
+        int left = 0;               // Left pointer for the sliding window
+        long long current_sum = 0;  // Sum of the current window
+        
+        // Iterate through the array with the right pointer
+        for (int right = 0; right < nums.size(); right++) {
+            current_sum += nums[right]; // Add the current element to the sum
+            
+            // Check if the current window is invalid
+            while ((long long)nums[right] * (right - left + 1) - current_sum > k) {
+                current_sum -= nums[left]; // Remove the leftmost element
+                left++;                    // Shrink the window
+            }
+            
+            // Update the maximum frequency
+            max_frequency = max(max_frequency, right - left + 1);
+        }
+        
+        return max_frequency;
+    }
+};
