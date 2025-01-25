@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        s = filterString(s); // filter out non-alphanumeric characters and convert to lowercase
+        int left = 0, right = s.size() - 1;
+        while (left < right) {
+            if (s[left] != s[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+private:
+    string filterString(string s) {
+        string result;
+        for (char c : s) {
+            if (isalnum(c)) {
+                result += tolower(c);
+            }
+        }
+        return result;
+    }
+};
